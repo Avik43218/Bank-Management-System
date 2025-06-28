@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        
+        <link id="themeStylesheet" rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+        
+        {% if title %}
+            <title> XYZ Bank - {{ title }} Page </title>
+        {% else %}
+            <title> XYZ Bank </title>
+        {% endif %}
+    </head>
+    <body>
+        <header class="site-header fixed-top">
+            <nav class="navbar navbar-expand-md navbar-top bg-top-navbar">
+                <div class="container">
+                    <div class="collapse navbar-collapse" id="navbarToggle">
+                        <div class="navbar-nav mr-auto logo">
+                            <div class="logo-icon"></div>
+                            <div class="logo-text">XYZ Bank</div>
+                        </div>
+                        <div class="navbar-nav">
+                            {% if current_user.is_authenticated %}
+                                <button class="nav-button">
+                                    <a class="nav-item" href="{{ url_for('clients.logout') }}">Logout</a>
+                                </button>
+                                <button class="nav-button">
+                                    <a class="nav-item" href="{{ url_for('clients.logout') }}">Logout</a>
+                                </button>
+                            {% else %}
+                                <button class="nav-button">
+                                    <a class="nav-item" href="{{ url_for('clients.login') }}">Login</a>
+                                </button>
+                                <button class="nav-button">
+                                    <a class="nav-item" href="{{ url_for('clients.register_client') }}">Register</a>
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <nav class="navbar navbar-expand-md navbar-dark bg-steel">
+                <div class="container">
+                    <a class="navbar-brand mr-4" href="/">XYZ Bank</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarToggle">
+                        <div class="navbar-nav mr-auto">
+                            <a class="nav-item nav-link" href="{{ url_for('main.root_route') }}">{{ title }}</a>
+                            {% if current_user.is_authenticated %}
+                                <a class="nav-item nav-link" href="#">Accounts</a>
+                                <a class="nav-item nav-link" href="{{ url_for('transaction.make_transaction') }}">Transactions</a>
+                                <a class="nav-item nav-link" href="#">Deposit</a>
+                                <a class="nav-item nav-link" href="#">Withdraw</a>
+                                <a class="nav-item nav-link" href="#">Transfer</a>
+                                <a class="nav-item nav-link" href="#">Analytics</a>
+                                <a class="nav-item nav-link" href="#">Settings</a>
+                            {% endif %}
+                            <a class="nav-item nav-link" href="{{ url_for('main.contact') }}">Contact</a>
+                        </div>
+                    </div>
+                    <button class="theme-toggle" onclick="toggleTheme();"> Theme </button>
+                </div>
+            </nav>
+        </header>
+        <br />
+        <br />
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }}">
+                                {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                {% block content %}{% endblock %}
+                </div>
+                <div class="col-md-4">
+                    <div class="content-section">
+                        <h3>Quick Sidebar</h3>
+                        {% if current_user.is_authenticated %}
+                            <p class='text-muted'>Links for quick access and navigation.
+                                <ul class="list-group sidebar-content">
+                                    <li class="list-group-item list-group-item-light sidebar-content">Account Overview
+                                        <ul class="list-group">
+                                            <li class="list-group-item list-group-item-light sidebar-content"><a href="{{ url_for('main.root_route') }}">{{ title }}</a></li>
+                                            <li class="list-group-item list-group-item-light sidebar-content"><a href="#">Profile Settings</a></li>
+                                            <li class="list-group-item list-group-item-light sidebar-content"><a href="#">Notifications</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="list-group-item list-group-item-light sidebar-content">Transactions
+                                        <ul class="list-group">
+                                            <li class="list-group-item list-group-item-light sidebar-content"><a href="#">Transaction History</a></li>
+                                            <li class="list-group-item list-group-item-light sidebar-content"><a href="#">Deposit</a></li>
+                                            <li class="list-group-item list-group-item-light sidebar-content"><a href="#">Withdraw</a></li>
+                                            <li class="list-group-item list-group-item-light sidebar-content"><a href="#">Transfer Money</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="list-group-item list-group-item-light sidebar-content">Security & Preferences
+                                        <ul class="list-group">
+                                            <li class="list-group-item list-group-item-light sidebar-content"><a href="#">Change Password/PIN</a></li>
+                                            <li class="list-group-item list-group-item-light sidebar-content"><a href="#">Set 2FA</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="list-group-item list-group-item-light sidebar-content">Support & Logout
+                                        <ul class="list-group">
+                                            <li class="list-group-item list-group-item-light sidebar-content"><a href="#">Contact Support</a></li>
+                                            <li class="list-group-item list-group-item-light sidebar-content"><a href="#">Logout</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </p>
+                        {% else %}
+                            <p class="text-muted">Links for quick access and navigation.
+                                <ul class="list-group sidebar-content">
+                                    <li class="list-group-item list-group-item-light sidebar-content">General
+                                        <ul class="list-group">
+                                            <li class="list-group-item list-group-item-light sidebar-content"><a href="{{ url_for('main.root_route') }}">{{ title }}</a></li>
+                                            <li class="list-group-item list-group-item-light sidebar-content"><a href="{{ url_for('main.about_us') }}">About Us</a></li>
+                                            <li class="list-group-item list-group-item-light sidebar-content"><a href="{{ url_for('main.contact') }}">Contact</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+      // Apply saved theme on page load
+      window.onload = function() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.getElementById('themeStylesheet').setAttribute('href', savedTheme);
+      }
+      };
+
+      // Toggle theme and save preference
+      function toggleTheme() {
+      const themeLink = document.getElementById('themeStylesheet');
+      const currentTheme = themeLink.getAttribute('href');
+
+      const lightTheme = "/static/main.css";
+      const darkTheme = "/static/dark.css";
+
+      const newTheme = currentTheme.includes("main.css") ? darkTheme : lightTheme;
+      themeLink.setAttribute('href', newTheme);
+      localStorage.setItem('theme', newTheme);
+      }
+    </script>
+    <script>
+      function displayMessage() {
+        alert("You are about to be logged out from your account!")
+      }
+    </script>
+    </body>
+</html>
