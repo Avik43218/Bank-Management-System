@@ -24,7 +24,7 @@ def register_client():
         hashed_passwd = bcrypt.generate_password_hash(form.current_password.data).decode('utf-8')
         
         # Generate Client ID
-        id_generator_path = "K:\\Programs\\C++ Programs\\Bank_Management_System\\src\\cpp\\client_id_generator.exe"
+        id_generator_path = "src\\cpp\\client_id_generator.exe"
         uid = subprocess.run([id_generator_path, str(form.aadhar.data), str(form.contact.data)],
                              capture_output=True, text=True)
         
@@ -96,7 +96,7 @@ def create_account():
         hashed_pin = bcrypt.generate_password_hash(form.security_pin.data).decode("utf-8")
 
         # Generate Client ID
-        path = "K:\\Programs\\C++ Programs\\Bank_Management_System\\src\\cpp\\account_id_generator.exe"
+        path = "src\\cpp\\account_id_generator.exe"
         uid = subprocess.run([path, str(form.account_type.data), str(form.aadhar.data), 
                               str(current_user.client_id)], capture_output=True, text=True)
         
