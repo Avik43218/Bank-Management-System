@@ -111,7 +111,7 @@ def create_account():
             security_pin=hashed_pin
         )
 
-        db.session.add()
+        db.session.add(account)
         db.session.commit()
 
         os.environ['SSL_CERT_FILE'] = certifi.where()

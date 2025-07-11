@@ -55,10 +55,10 @@
                             <a class="nav-item nav-link" href="{{ url_for('main.root_route') }}">{{ title }}</a>
                             {% if current_user.is_authenticated %}
                                 <a class="nav-item nav-link" href="#">Accounts</a>
-                                <a class="nav-item nav-link" href="{{ url_for('transaction.make_transaction') }}">Transactions</a>
-                                <a class="nav-item nav-link" href="#">Deposit</a>
-                                <a class="nav-item nav-link" href="#">Withdraw</a>
-                                <a class="nav-item nav-link" href="#">Transfer</a>
+                                <a class="nav-item nav-link" href="#">Transactions</a>
+                                <a class="nav-item nav-link" href="{{ url_for('transactions.make_transaction') }}">Deposit</a>
+                                <a class="nav-item nav-link" href="{{ url_for('transactions.make_transaction') }}">Withdraw</a>
+                                <a class="nav-item nav-link" href="{{ url_for('transactions.make_transaction') }}">Transfer</a>
                                 <a class="nav-item nav-link" href="#">Analytics</a>
                                 <a class="nav-item nav-link" href="#">Settings</a>
                             {% endif %}
