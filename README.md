@@ -92,5 +92,5 @@ This project is licensed under the [MIT License](./LICENSE).
 
 ---
 
-**Thank you for checking out this project!**
+**Thank you for checking out this project!**<br />
 **Made with passion & love for the web - Avik43218**
