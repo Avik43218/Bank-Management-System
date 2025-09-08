@@ -3,9 +3,9 @@ from src import db, login_manager
 from datetime import datetime
 
 @login_manager.user_loader
-def load_user(user_id):
+def load_user(client_id):
     try:
-        return Client.query.get(int(user_id)) if user_id else None
+        return Client.query.get(int(client_id)) if client_id else None
     except (ValueError, TypeError):
         return None
 
@@ -24,7 +24,7 @@ class Client(db.Model, UserMixin):
     accounts = db.relationship('Account', backref='owner', lazy=True)
 
     def __repr__(self):
-        return f"Client('{self.full_name}', '{self.email}', '{self.aadhar}')"
+        return f"Client('{self.client_id}', '{self.full_name}', '{self.email}', '{self.aadhar}')"
     
 
 class Account(db.Model):
