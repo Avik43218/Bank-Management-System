@@ -76,3 +76,36 @@ XYZ Bank Group
     sg = SendGridAPIClient(os.getenv("SENDGRID_API_KEY"))
     sg.send(message=message)
 
+
+def send_account_mail_via_smtp(client_id: str, full_name: str, email: str, aadhar: str, contact: str):
+
+    import os
+    from src import mail
+    from flask_mail import Message
+
+    msg = Message('XYZ Bank - User Registration Notification', 
+                  sender=os.getenv("EMAIL_USERNAME"), recipients=[email])
+    
+    first_name = full_name.split()[0]
+
+    content = f"""
+Hello {first_name.capitalize()},
+
+Your User Account has been created successfully, with the credentials down below:
+
+    Client ID : {client_id}
+    Client's Name : {full_name}
+    Aadhar : **** **** {aadhar[-4:]}
+    Contact : ********{contact[-2:]}
+
+Note: Passwords & PINs are never sent through email.
+
+If you did not create this account, contact us immediately through our helpline number.
+Contact Us : 1800-123-4567
+
+Thank you for choosing us!
+XYZ Bank Group
+"""
+    
+    msg.body = content
+    mail.send(msg)

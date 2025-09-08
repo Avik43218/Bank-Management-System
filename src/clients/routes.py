@@ -4,7 +4,7 @@ from datetime import timedelta
 import subprocess, os, certifi
 
 from src.clients.forms import ClientRegistrationForm, ClientLoginForm, AccountCreationForm
-from src.clients.utils import send_account_mail, send_registration_mail
+from src.clients.utils import send_account_mail, send_account_mail_via_smtp
 from src.db_models import Client, Account
 from src import bcrypt, db, limiter
 
@@ -46,8 +46,9 @@ def register_client():
 
         os.environ['SSL_CERT_FILE'] = certifi.where()
 
-        send_registration_mail(client_id=str(uid.stdout.strip()), full_name=form.full_name.data,
-                          contact=form.contact.data, aadhar=form.aadhar.data, email=form.email.data)
+        send_account_mail_via_smtp(client_id=uid.stdout.strip(), full_name=form.full_name.data, 
+                                   email=form.email.data, aadhar=str(form.aadhar.data), 
+                                   contact=str(form.contact.data))
 
         flash("You have been registered successfully!", 'success')
         return redirect(url_for("clients.login"))
@@ -65,9 +66,9 @@ def login():
 
     if form.validate_on_submit():
         
-        client = Client.query.filter_by(full_name=form.full_name.data).first()
+        client = Client.query.first()
 
-        if client and form.full_name.data.lower() == client.full_name and form.email.data.lower() == client.email\
+        if form.full_name.data.lower() == client.full_name and form.email.data.lower() == client.email\
              and form.aadhar.data == client.aadhar and bcrypt.check_password_hash(client.passwd, 
                                                                 form.current_password.data):
             

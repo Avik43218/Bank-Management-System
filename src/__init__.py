@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_mail import Mail
 from flask_bcrypt import Bcrypt
 from flask_limiter import Limiter
 from flask_login import LoginManager
@@ -9,6 +10,7 @@ from src.config import Config
 from src.firewall import Firewall
 
 
+mail = Mail()
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 firewall = Firewall()
@@ -23,6 +25,7 @@ def create_app(config_class=Config):
     app = Flask(__name__, template_folder="templates")
     app.config.from_object(config_class)
 
+    mail.init_app(app=app)
     db.init_app(app=app)
     bcrypt.init_app(app=app)
     login_manager.init_app(app=app)
