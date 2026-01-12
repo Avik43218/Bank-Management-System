@@ -5,10 +5,10 @@ using namespace std;
 static inline bool check_luhn(string card_number) {
 
     int n_sum = 0;
-    size_t num_digits = sizeof(card_number) / sizeof(string);
+    size_t num_digits = card_number.length();
     bool is_second = false;
 
-    for (int i = num_digits - 1; i > -1; i--) {
+    for (int i = num_digits - 1; i >= 0; i--) {
 
         char zero_char = '0';
         int d = (int)card_number[i] - (int)zero_char;
