@@ -7,7 +7,7 @@ using namespace std;
 int main(int argc, char* argv[]) {
 
     if (argc != 4) {
-        cerr << "Required 2 argument: <account_type> <aadhar> <client_id>" << endl;
+        cerr << "Required 3 argument: <account_type> <aadhar> <client_id>" << endl;
         return 1;
     }
 
