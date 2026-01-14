@@ -22,8 +22,8 @@ def about_us():
     return render_template("about_us.html", title="About Us")
 
 
-@main.route("/contact")
+@main.route("/support")
 @limiter.exempt
-def contact():
+def support():
     
-    return render_template("contact.html", title="Contact")
+    return render_template("Support.html", title="Support")

@@ -3,9 +3,9 @@
     <div class="content-section">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
-            <fieldset class="form-group">
+            <fieldset class="form-control">
                 <legend class="border-bottom mb-4">Sign In to your User Account</legend>
-                <div class="form-group">
+                <div class="form-control">
                     {{ form.full_name.label(class="form-control-label") }}
 
                     {% if form.full_name.errors %}
@@ -19,7 +19,7 @@
                         {{ form.full_name(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form-control">
                     {{ form.email.label(class="form-control-label") }}
 
                     {% if form.email.errors %}
@@ -33,7 +33,7 @@
                         {{ form.email(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form-control">
                     {{ form.aadhar.label(class="form-control-label") }}
 
                     {% if form.aadhar.errors %}
@@ -47,7 +47,7 @@
                         {{ form.aadhar(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form-control">
                     {{ form.account_type.label(class="form-control-label") }}
 
                     {% if form.account_type.errors %}
@@ -61,7 +61,7 @@
                         {{ form.account_type(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form-control">
                     {{ form.voter_id.label(class="form-control-label") }}
 
                     {% if form.voter_id.errors %}
@@ -75,7 +75,7 @@
                         {{ form.voter_id(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form-control">
                     {{ form.pan.label(class="form-control-label") }}
 
                     {% if form.pan.errors %}
@@ -89,7 +89,7 @@
                         {{ form.pan(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form-control">
                     {{ form.security_pin.label(class="form-control-label") }}
 
                     {% if form.security_pin.errors %}
@@ -108,7 +108,7 @@
                     {{ form.remember_me.label(class="form-check-label") }}
                 </div>
             </fieldset>
-            <div class="form-group">
+            <div class="form-control">
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
         </form>
